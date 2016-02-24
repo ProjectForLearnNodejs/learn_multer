@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/jquery.alerts.css">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  </head>
+  <body>
+    <h4>测试multer</h4>
+    <a href="#" id="pickfiles" class="btn btn-default btn-lg " style="margin:10px 0px 0px 10px;">
+      <i class="glyphicon glyphicon-plus"></i>
+      <span>选择文件</span>
+    </a>
+    <a class="btn btn-default" id="start_upload" style="margin: 10px 0px 0px 10px;">
+      <i class="icon-star"></i>
+      <span>开始上传</span>
+    </a>
+
+    <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.alerts.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="js/jquery.form.js"></script>
+    <script type="text/javascript" src="plupload/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="plupload/js/i18n/zh_CN.js"></script>
+    <script type="text/javascript">
+      var uploader;
+      $(function() {
+        //实例化一个plupload上传对象
+        uploader = new plupload.Uploader({
+          runtimes: 'html5,flash,html4',
+          browse_button : 'pickfiles', //触发文件选择对话框的按钮，为那个元素id
+          url: '/upload',  // 服务器上传地址
+          unique_names: true,
+          multipart: true,
+          multipart_params: {},     // 后续设置该从参数的值
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        // 当上传队列中的某一文件正要开始上传前触发
+        uploader.bind('BeforeUpload', function(uploader, files){
+        });
+
+        // 当文件添加到上传队列后触发,files为一数组（本次添加的文件对象数组）
+        uploader.bind('FilesAdded',function(uploader, files){
+        });
+
+        // 文件上传出错时触发
+        uploader.bind('Error',function(uploader,errObject){
+        });
+
+        // 文件上传完成后触发,也就是文件上传成功
+        uploader.bind('FileUploaded',function(uploader, file, responseObject){
+        });
+
+        // 当当前上传文件队列中的所有文件都已上传完时触发
+        uploader.bind('UploadComplete',function(uploader,file){
+        });
+
+        //最后给"开始上传"按钮注册事件
+        document.getElementById('start_upload').onclick = function(){
+          uploader.start(); //调用实例对象的start()方法开始上传文件，当然你也可以在其他地方调用该方法
+      }
+      });
+    </script>
+  </body>
+</html>
